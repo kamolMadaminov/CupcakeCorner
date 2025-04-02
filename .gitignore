@@ -1,0 +1,55 @@
+# Xcode
+.DS_Store
+*.swp
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Derived Data & Logs
+DerivedData/
+*.hmap
+*.xccheckout
+*.moved-aside
+*.xcworkspace/
+*.xcassets
+
+# Archives
+*.ipa
+*.xcarchive
+
+# Firebase
+GoogleService-Info.plist
+
+# Temporary Files
+*.tmp
+*.swp
+*.lock
+
+# SwiftLint
+.swiftlint.yml
+
+# Environment Variables
+.env
+.env.*
+
+# Xcode Cloud
+.xcresult/
