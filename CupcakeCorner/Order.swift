@@ -24,4 +24,16 @@ class Order {
     }
     var extraFrosting = false
     var addSprinkles = false
+    
+    var name = ""
+    var streetAddress = ""
+    var city = ""
+    var zipCode = ""
+    
+    var hasValidAddress: Bool{
+        if name.count > 2 && streetAddress.count > 2 && city.count > 2 && zipCode.count == 5{
+            return true
+        }
+        return false
+    }
 }
