@@ -11,6 +11,8 @@ struct CheckoutView: View {
     var order: Order
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
+    @State private var errorMessage = ""
+    @State private var showingError = false
     
     var body: some View {
         ScrollView{
@@ -43,6 +45,11 @@ struct CheckoutView: View {
         } message: {
             Text(confirmationMessage)
         }
+        .alert("Error", isPresented: $showingError){
+            Button("Error"){}
+        } message: {
+            Text(errorMessage)
+        }
     }
     
     func placeOrder() async {
@@ -56,6 +63,12 @@ struct CheckoutView: View {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         
+        if !reachabilty() {
+            errorMessage = "No internet connection. Please try again later."
+            showingError = true
+            return
+        }
+        
         do {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
             let decodedOrder = try JSONDecoder().decode(Order.self, from: data)
@@ -65,6 +78,10 @@ struct CheckoutView: View {
         } catch {
             print("Checout failed: \(error.localizedDescription)")
         }
+    }
+    
+    func reachabilty() -> Bool {
+        return (try? String(contentsOf: URL(string: "https://www.google.com")!)) != nil
     }
 }
 

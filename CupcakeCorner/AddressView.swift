@@ -23,12 +23,34 @@ struct AddressView: View {
                 NavigationLink("Checkout"){
                     CheckoutView(order: order)
                 }
+                .simultaneousGesture(TapGesture().onEnded{
+                    saveDate()
+                })
             }
             .disabled(!order.hasValidAddress)
         }
         .navigationTitle("Delivery details")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(){
+            loadData()
+        }
     }
+    
+    func saveDate() {
+        guard let encodedData = try? JSONEncoder().encode(order) else { return }
+        UserDefaults.standard.set(encodedData, forKey: "order")
+    }
+    
+    func loadData() {
+            if let data = UserDefaults.standard.data(forKey: "order") {
+                if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data) {
+                    order.name = decodedOrder.name
+                    order.streetAddress = decodedOrder.streetAddress
+                    order.city = decodedOrder.city
+                    order.zipCode = decodedOrder.zipCode
+                }
+            }
+        }
 }
 
 #Preview {

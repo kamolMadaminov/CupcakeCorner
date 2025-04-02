@@ -43,7 +43,7 @@ class Order: Codable {
     var zipCode = ""
     
     var hasValidAddress: Bool{
-        if name.count > 2 && streetAddress.count > 2 && city.count > 2 && zipCode.count == 5{
+        if name.count > 2 && streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).count > 2 && city.count > 2 && zipCode.count == 5{
             return true
         }
         return false
